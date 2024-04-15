@@ -1,4 +1,3 @@
-//Création de la classe des annonces
 class Listing {
 	constructor(
 		title,
@@ -19,5 +18,4 @@ class Listing {
 	}
 }
 
-//Exportation de la classe
 module.exports = { Listing };

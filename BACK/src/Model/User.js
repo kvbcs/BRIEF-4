@@ -1,4 +1,3 @@
-//Création des classes utilisateurs
 class User {
 	constructor(id, firstName, lastName, email, password, gdpr, createdAt) {
 		this.id = id;
@@ -11,5 +10,4 @@ class User {
 	}
 }
 
-//Exportation de la classe
 module.exports = { User };

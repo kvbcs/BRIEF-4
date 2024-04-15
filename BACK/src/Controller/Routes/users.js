@@ -1,12 +1,20 @@
 const express = require("express");
-const { register, login } = require("../UserController");
+const {
+	register,
+	login,
+	getAllUsers,
+	getSpecificUser,
+	updateUser,
+	deleteUser,
+} = require("../UserController");
 
-//Création d'un routeur Express
-const router = express.Router();
+const userRouter = express.Router();
 
-//On créé une route pour l'inscription des utilisateurs, en écoutant les requêtes POST sur register
-router.route("/register").post(register);
-router.route("/login").post(login);
+userRouter.route("/register").post(register);
+userRouter.route("/login").post(login);
+userRouter.route("/getAllUsers").get(getAllUsers);
+userRouter.route("/getSpecificUser/:id").get(getSpecificUser);
+userRouter.route("/updateUser/:id").put(updateUser);
+userRouter.route("/deleteUser/:id").delete(deleteUser);
 
-//Exportation de router
-module.exports = router;
+module.exports = userRouter;
