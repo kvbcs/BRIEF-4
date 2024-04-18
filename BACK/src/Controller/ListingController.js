@@ -1,8 +1,8 @@
 const { Listing } = require("../Model/Listing");
 const client = require("../Services/DbConnexion");
 const { ObjectId } = require("bson");
-//TODO : instancier extractToken d'Utils
 const jwt = require("jsonwebtoken");
+const { extractToken } = require("../Utils/extractToken");
 require("dotenv").config();
 
 const createListing = async (req, res) => {
@@ -62,6 +62,34 @@ const getSpecificListing = async (req, res) => {
 		console.log(error);
 		res.status(501).json(error);
 	}
+};
+
+const getMyListing = async (req, res) => {
+	//on créé une const token qui extrait le token de headers/authrization, le token dans le header du http
+	const token = await extractToken(req);
+	//la librairie jwt propose une fonction verify, qui vérifie le token grace à la clé secrète et renvoi la donnée du jwt
+	//si clé secrète est même qu'a la connexion (aka la clé passée dans jwt.sign) alors la donnée est renvoyée, sinon erreur
+
+	jwt.verify(token, process.env.SECRET_KEY, async (err, authData) => {
+		if (err) {
+			console.log(err);
+			res.status(401).json({ err: "Unhautorized" });
+			return;
+		} else {
+			// Dans le callback de cette fonction est renvoyé la donnée présente dans le jwt
+			// je me sers de cette donnée pour faire ma requête à mongodb
+			// et je n'ai plus besoin de rien dans le body
+			let listings = await client
+				.db("Brief-4")
+				.collection("listing")
+				//authdata est ce qui la donnée renvoyé par verify
+				//quand on fait jwt.sign à la connexion, on a mis l'id dans ce jwt
+				//et donc je peux y accéder ici
+				.find({ userId: authData.id });
+			let apiResponse = await listings.toArray();
+			res.status(200).json(apiResponse);
+		}
+	});
 };
 
 const updateListing = async (req, res) => {

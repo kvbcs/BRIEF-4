@@ -42,37 +42,66 @@ main {
 	align-items: center;
 	gap: 50px;
 	padding: 50px 0px;
+	overflow-y: scroll;
 }
 
 .event {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	width: 70%;
 	background-color: rgb(59, 59, 59);
 	border-radius: 25px;
 	padding: 30px;
-	height: fit-content;
+	height: 200px;
+	gap: 20px;
 }
 .event-img {
 	flex-direction: column;
 	width: 10%;
 }
 .event-text {
+	display: flex;
 	flex-direction: column;
+	gap: 20px;
 	width: 90%;
+	height: 100%;
+	overflow-y: auto;
 	text-align: justify;
 }
-/* STYLE TEMPORAIRE */
+
+.form {
+	border: 2px solid white;
+	display: flex;
+	flex-direction: column;
+	width: 500px;
+	height: fit-content;
+	border-radius: 25px;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	padding: 30px 0px;
+	box-shadow: 0px 0px 10px white;
+}
+.form label {
+	color: white;
+}
+.form a {
+	color: red;
+}
+
+input {
+	padding: 10px;
+	border-radius: 25px;
+	width: 80%;
+}
+
 img {
 	height: 100px;
 	width: 100px;
 	border-radius: 50%;
 }
 
-.modal {
-	background-color: green;
-	display: none;
-}
 footer {
 	background-color: red;
 	position: absolute;

@@ -6,6 +6,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const register = async (req, res) => {
+	const existingUser = await client
+		.db("Brief-4")
+		.collection("user")
+		.findOne({ email: req.body.email });
+
+	if (existingUser) {
+		return res.status(400).json({ msg: "This email is already used" });
+	}
 	if (
 		!req.body.firstName ||
 		!req.body.lastName ||
@@ -30,8 +38,17 @@ const register = async (req, res) => {
 			.collection("user")
 			.insertOne(user);
 
-		res.status(200).json(result);
-		console.log(result);
+		const token = jwt.sign(
+			{
+				id: result.insertedId,
+				email: user.email,
+			},
+			process.env.SECRET_KEY,
+
+			{ expiresIn: "24h" }
+		);
+		res.status(200).json({ token });
+		console.log(token);
 	} catch (e) {
 		console.log(e);
 		res.status(500).json(e);
@@ -42,14 +59,44 @@ const login = async (req, res) => {
 	if (!req.body.email || !req.body.password) {
 		res.status(400).json({ error: "Some login fields are missing" });
 		return;
-	} else {
-		res.status(200).json("Login verified");
 	}
+
 	let user = await client
 		.db("Brief-4")
 		.collection("user")
 		.findOne({ email: req.body.email });
 	console.log(user);
+
+	if (!user) {
+		res.status(401).json({ error: "Invalid email" });
+		return;
+	} else {
+		const isValidPassword = await bcrypt.compare(
+			req.body.password,
+			user.password
+		);
+		console.log(isValidPassword);
+
+		if (!isValidPassword) {
+			res.status(401).json({ error: "Invalid password" });
+			return;
+		} else {
+			const token = jwt.sign(
+				{
+					id: user._id,
+					email: user.email,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					gdpr: new Date(user.gdpr).toLocaleString("fr"),
+				},
+				process.env.SECRET_KEY,
+
+				{ expiresIn: "24h" }
+			);
+			console.log(process.env.SECRET_KEY);
+			res.status(200).json({ jwt: token });
+		}
+	}
 };
 
 const getAllUsers = async (req, res) => {
