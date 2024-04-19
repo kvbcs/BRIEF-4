@@ -10,23 +10,23 @@ async function getAllListings() {
 	console.log(response);
 
 	response.forEach((listing) => {
-		main.innerHTML += `<div class="event"> <div class="event_img"><img src="${listing.image}"/> </div> <div class="event-text"><h2>${listing.title}</h2>  <p>${listing.description}</p> <h3>${listing.maxParticipants}</h3> </div> </div>`;
+		main.innerHTML += `<div class="event"> <div class="event_img"><img src="${listing.image}"/> </div> <div class="event-text"><h2>${listing.title}</h2>  <p>${listing.description}</p> <h3>Participants : 0/${listing.maxParticipants}</h3> <button>Participate</button> </div> </div>`;
 	});
 }
 
 getAllListings();
 
-async function test() {
-	let request = {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json; charset=utf-8",
-		},
-	};
+// async function test() {
+// 	let request = {
+// 		method: "GET",
+// 		headers: {
+// 			"Content-Type": "application/json; charset=utf-8",
+// 		},
+// 	};
 
-	let apiRequest = await fetch("http://localhost:5000/getAllUsers", request);
-	let response = await apiRequest.json();
-	console.log(response);
-}
+// 	let apiRequest = await fetch("http://localhost:5000/getAllUsers", request);
+// 	let response = await apiRequest.json();
+// 	console.log(response);
+// }
 
-test();
+// test();

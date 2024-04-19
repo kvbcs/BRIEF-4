@@ -24,7 +24,7 @@ button:hover {
 
 /* STYLE HEADER */
 header {
-	background-color: red;
+	background: linear-gradient(0deg, darkred, red);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -32,6 +32,13 @@ header {
 	height: 10vh;
 	width: 100%;
 	padding: 0px 20px;
+}
+header a {
+	text-decoration: none;
+}
+
+header h2 {
+	font-size: 3em;
 }
 
 /* STYLE MAIN */
@@ -43,31 +50,37 @@ main {
 	gap: 50px;
 	padding: 50px 0px;
 	overflow-y: scroll;
+	background: linear-gradient(180deg, black, rgb(39, 39, 39));
 }
 
 .event {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	width: 70%;
+	justify-content: space-evenly;
+	width: 50%;
 	background-color: rgb(59, 59, 59);
 	border-radius: 25px;
 	padding: 30px;
-	height: 200px;
+	height: 300px;
 	gap: 20px;
 }
 .event-img {
 	flex-direction: column;
-	width: 10%;
+	width: 30%;
 }
 .event-text {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
-	width: 90%;
-	height: 100%;
+	justify-content: center;
+	gap: 30px;
+	width: 50%;
+	height: 200px;
 	overflow-y: auto;
 	text-align: justify;
+}
+.event button {
+	width: fit-content;
 }
 
 .form {
@@ -97,13 +110,13 @@ input {
 }
 
 img {
-	height: 100px;
-	width: 100px;
+	height: 250px;
+	width: 250px;
 	border-radius: 50%;
 }
 
 footer {
-	background-color: red;
+	background: linear-gradient(0deg, darkred, red);
 	position: absolute;
 	bottom: 0px;
 	display: flex;

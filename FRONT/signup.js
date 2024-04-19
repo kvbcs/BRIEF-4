@@ -53,6 +53,8 @@ async function handleLogin() {
 		console.log(data.jwt);
 
 		window.localStorage.setItem("jwt", data.jwt);
+				window.localStorage.setItem("id", data._id);
+
 
 		setTimeout(() => {
 			window.location.href = "./index.html";

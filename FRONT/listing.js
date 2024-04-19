@@ -12,13 +12,14 @@ async function createListing() {
 		image: image,
 		description: description,
 		maxParticipants: maxParticipants,
-		userId: userId,
 	};
+	let jwt = window.localStorage.getItem("jwt");
 
 	let request = {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
+			Authorization: `Bearer ${jwt}`,
 		},
 		body: JSON.stringify(listing),
 	};
@@ -29,6 +30,5 @@ async function createListing() {
 	if (response.status === 200) {
 		console.log(response);
 		window.location.href = "./index.html";
-    } 
-    
+	}
 }
